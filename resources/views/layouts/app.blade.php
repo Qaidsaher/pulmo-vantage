@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="theme-warm">
 
 <head>
     <meta charset="utf-8">
@@ -36,6 +36,29 @@
         </main>
         @include('layouts.footer')
     </div>
+    <!-- Theme Selector Script -->
+    <script>
+        function setTheme(themeClass) {
+            // Remove any classes that start with "theme-"
+            document.documentElement.classList.forEach(function(c) {
+                if (c.startsWith('theme-')) {
+                    document.documentElement.classList.remove(c);
+                }
+            });
+            // If the theme is not default, add the new class.
+            if (themeClass !== 'default') {
+                document.documentElement.classList.add(themeClass);
+            }
+            // Save the preference in local storage.
+            localStorage.setItem('theme', themeClass);
+        }
+
+        // On page load, check local storage for theme.
+        document.addEventListener('DOMContentLoaded', function() {
+            const theme = localStorage.getItem('theme') || 'default';
+            setTheme(theme);
+        });
+    </script>
 </body>
 
 </html>

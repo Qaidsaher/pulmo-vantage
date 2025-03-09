@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\BlogPost;
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 class BlogPostController extends Controller
 {
     /**
@@ -42,7 +44,7 @@ class BlogPostController extends Controller
             $data['image'] = $request->file('image')->store('blog_images', 'public');
         }
 
-        $data['user_id'] = auth()->id();
+        $data['user_id'] = Auth::id();
         $data['published_at'] = now();
 
         BlogPost::create($data);
@@ -67,7 +69,7 @@ class BlogPostController extends Controller
         $post = BlogPost::findOrFail($id);
 
         // Only allow the owner to edit
-        if ($post->user_id !== auth()->id()) {
+        if ($post->user_id !== Auth::id()) {
             return redirect()->route('blog.index')->with('error', 'You are not authorized to edit this post.');
         }
 
@@ -81,7 +83,7 @@ class BlogPostController extends Controller
     {
         $post = BlogPost::findOrFail($id);
 
-        if ($post->user_id !== auth()->id()) {
+        if ($post->user_id !== Auth::id()) {
             return redirect()->route('blog.index')->with('error', 'You are not authorized to update this post.');
         }
 
@@ -108,7 +110,7 @@ class BlogPostController extends Controller
     {
         $post = BlogPost::findOrFail($id);
 
-        if ($post->user_id !== auth()->id()) {
+        if ($post->user_id !== Auth::id()) {
             return redirect()->route('blog.index')->with('error', 'You are not authorized to delete this post.');
         }
 
@@ -126,11 +128,29 @@ class BlogPostController extends Controller
             'content' => 'required|string',
         ]);
 
-        $data['user_id'] = auth()->id();
+        $data['user_id'] = Auth::id();
         $data['blog_post_id'] = $blogPostId;
 
         Comment::create($data);
 
         return redirect()->route('blog.show', $blogPostId)->with('success', 'Comment added successfully.');
+    }
+    /**
+     * Delete a comment on a blog post.
+     */
+    public function destroyComment(Request $request, $commentId)
+    {
+        $comment = Comment::findOrFail($commentId);
+
+        // Allow deletion if the authenticated user is the comment author or the owner of the blog post.
+        if (Auth::id() !== $comment->user_id && Auth::id()  !== $comment->blogPost->user_id) {
+            return redirect()->back()->with('error', 'You are not authorized to delete this comment.');
+        }
+
+        $blogPostId = $comment->blog_post_id;
+        $comment->delete();
+
+        return redirect()->route('blog.show', $blogPostId)
+            ->with('success', 'Comment deleted successfully.');
     }
 }

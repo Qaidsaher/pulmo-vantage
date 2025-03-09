@@ -6,7 +6,7 @@
           Share your insights with our community by creating a new blog post.
         </p>
       </header>
-      {{-- <div class="p-8 bg-white shadow-lg rounded-xl">
+      <div class="p-8 bg-white shadow-lg rounded-xl">
         <form action="{{ route('blog.store') }}" method="POST" enctype="multipart/form-data">
           @csrf
           <div class="mb-6">
@@ -41,6 +41,7 @@
             Publish Post
           </button>
         </form>
-      </div> --}}
+      </div>
     </div>
   </x-app-layout>
+

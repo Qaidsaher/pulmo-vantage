@@ -30,22 +30,31 @@ class ProfileController extends Controller
         $user = $request->user();
         $data = $request->validated();
 
-        // Handle avatar upload if present.
+        // Handle avatar upload if present
         if ($request->hasFile('avatar')) {
-            // Delete the old avatar if it exists.
-            if ($user->avatar && Storage::disk('public')->exists($user->avatar)) {
-                Storage::disk('public')->delete($user->avatar);
+            $file = $request->file('avatar');
+
+            if ($file->isValid() && in_array($file->extension(), ['jpg', 'jpeg', 'png', 'gif', 'webp'])) {
+                // Delete old avatar if it exists
+                if ($user->avatar) {
+                    $oldAvatarPath = 'avatars/' . basename($user->avatar);
+                    if (Storage::disk('public')->exists($oldAvatarPath)) {
+                        Storage::disk('public')->delete($oldAvatarPath);
+                    }
+                }
+
+                // Store the new avatar
+                $filename = uniqid('avatar_') . '.' . $file->getClientOriginalExtension();
+                $data['avatar'] = $file->storeAs('avatars', $filename, 'public');
             }
-            // Store the new avatar in the 'avatars' directory.
-            $data['avatar'] = $request->file('avatar')->store('avatars', 'public');
         }
 
-        // If the email has changed, mark it as unverified.
+        // If the email has changed, mark it as unverified
         if (isset($data['email']) && $data['email'] !== $user->email) {
             $data['email_verified_at'] = null;
         }
 
-        // Update the user with the validated data.
+        // Update the user with the validated data
         $user->update($data);
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
