@@ -136,7 +136,7 @@
     </section>
 
     <!-- AI Insights Section -->
-    <section class="px-6 py-20 mx-auto text-center text-white md:px-16 max-w-7xl bg-darkNeutral">
+    <section class="px-6 py-20 mx-auto text-center text-primary md:px-16 max-w-7xl bg-darkNeutral">
       <h2 class="mb-10 text-5xl font-extrabold">
         Revolutionizing Lung Health with AI
       </h2>

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PredictionResult extends Model
 {
-    protected $fillable = ['prediction_id', 'model_name', 'result_detail', 'confidence'];
+    protected $fillable = ['prediction_id', 'model_name', 'result_detail', 'confidence','image_path'];
 
     public function prediction()
     {

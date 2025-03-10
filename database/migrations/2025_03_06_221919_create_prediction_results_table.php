@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('prediction_id')->constrained('predictions')->onDelete('cascade');
             $table->string('model_name'); // e.g., "reset50", "mobilenet"
+            $table->string('image_path')->nullable();
             $table->string('result_detail');
             $table->float('confidence')->nullable();
             $table->timestamps();

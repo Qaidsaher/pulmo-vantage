@@ -79,6 +79,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/predict/manual', function () {
         return view('predicts.predict-manual');
     })->name('predict.manual.show');
+    Route::delete('/predict/{id}', [PredictController::class, 'destroy'])->name('predict.destroy');
 
     Route::post('/predict/image', [PredictController::class, 'predictImage'])->name('predict.image');
     Route::post('/predict/manual', [PredictController::class, 'predictManual'])->name('predict.manual');
