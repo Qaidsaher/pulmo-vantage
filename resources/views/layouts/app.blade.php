@@ -6,7 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Pulmo-Vantage') }}</title>
+    <!-- Basic Meta Tags -->
+    <title>Pulmo-Vantage | AI-Powered Lung Health & Early Detection</title>
+    <meta name="description"
+        content="Pulmo-Vantage revolutionizes lung health with AI. Early detection, real-time insights, HIPAA & GDPR compliance. Breathe better and live healthier.">
+    <meta name="keywords"
+        content="lung health, AI lung analysis, early detection, pulmonary wellness, AI diagnosis, lung scan AI, HIPAA compliant health platform, pulmonary AI insights, lung disease detection, Pulmo-Vantage">
+    <meta name="author" content="Pulmo-Vantage Team">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Pulmo-Vantage | AI-Powered Lung Health & Early Detection">
+    <meta property="og:description"
+        content="Discover how AI can enhance your lung health. Upload your scans, get instant reports, and trust AI-powered, doctor-verified insights.">
+    <meta property="og:image" content="{{ asset('images/lung-awareness-annotated.png') }}">
+    <meta property="og:url" content="https://yourwebsite.com">
+    <meta property="og:site_name" content="Pulmo-Vantage">
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Pulmo-Vantage | AI-Powered Lung Health & Early Detection">
+    <meta name="twitter:description"
+        content="Early lung health detection powered by AI. Instant insights, full data privacy, and doctor-verified accuracy.">
+    <meta name="twitter:image" content="{{ asset('images/lung-awareness-annotated.png') }}">
+    <meta name="twitter:site" content="@yourtwitterhandle">
+
+    <!-- Favicon -->
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
