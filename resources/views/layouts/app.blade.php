@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Pulmo-Vantage') }}</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -50,12 +50,13 @@
                 document.documentElement.classList.add(themeClass);
             }
             // Save the preference in local storage.
+
             localStorage.setItem('theme', themeClass);
         }
 
         // On page load, check local storage for theme.
         document.addEventListener('DOMContentLoaded', function() {
-            const theme = localStorage.getItem('theme') || 'default';
+            const theme = localStorage.getItem('theme') || 'theme-green';
             setTheme(theme);
         });
     </script>

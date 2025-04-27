@@ -8,7 +8,7 @@ use App\Http\Controllers\ApiConfigController;
 
 // Public Routes
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
 // Route::get('/blog', [BlogPostController::class, 'index'])->name('blog.index');
@@ -53,9 +53,9 @@ Route::get('/help', function () {
 Route::middleware(['auth'])->group(function () {
 
     // Dashboard & Static Pages
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/index', function () {
+        return view('index');
+    })->name('index');
 
 
     // Blog Management using resource routes (create, edit, update, destroy)

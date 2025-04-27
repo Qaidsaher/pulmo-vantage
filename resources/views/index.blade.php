@@ -50,7 +50,7 @@
             <!-- Right Side: Image -->
             <div class="justify-center hidden lg:flex">
                 <div class="relative">
-                    <img src="https://source.unsplash.com/600x400/?lungs,healthcare,doctor" alt="Lung Health Awareness"
+                    <img src="{{ asset('images/lung-awareness-annotated.png') }}" alt="Lung Health Awareness"
                         class="w-full max-w-md shadow-2xl rounded-xl lg:max-w-lg" />
                     <div class="absolute w-24 h-24 rounded-full opacity-50 -top-6 -left-6 bg-secondary"></div>
                     <div class="absolute w-16 h-16 rounded-full opacity-50 -bottom-6 -right-6 bg-accent"></div>

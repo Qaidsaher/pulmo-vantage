@@ -5,14 +5,14 @@
         <div class="flex">
           <!-- Logo -->
           <div class="flex items-center shrink-0">
-            <a href="{{ route('dashboard') }}">
+            <a href="{{ route('index') }}">
               <x-application-logo class="block w-auto fill-current h-9 text-primary" />
             </a>
           </div>
           <!-- Navigation Links (Desktop) -->
           <div class="hidden ml-10 sm:flex sm:ml-5 sm:space-x-4">
-            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-              <span class="text-primary">Dashboard</span>
+            <x-nav-link :href="route('index')" :active="request()->routeIs('index')">
+              <span class="text-primary">Home</span>
             </x-nav-link>
             <x-nav-link :href="route('about')" :active="request()->routeIs('about')">
               <span class="text-primary">About</span>
@@ -26,10 +26,18 @@
             <x-nav-link :href="route('contact')" :active="request()->routeIs('contact')">
               <span class="text-primary">Contact</span>
             </x-nav-link>
+            @auth
             <x-nav-link :href="route('predict.history')" :active="request()->routeIs('predict.history')">
               <span class="text-primary">History</span>
             </x-nav-link>
+            @endauth
 
+
+            @guest
+            <x-nav-link :href="route('help')" :active="request()->routeIs('help')">
+                <span class="text-primary">Help</span>
+              </x-nav-link>
+            @endguest
           </div>
         </div>
 
@@ -119,8 +127,8 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
       <div class="pt-2 pb-3 space-y-1">
-        <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-          {{ __('Dashboard') }}
+        <x-responsive-nav-link :href="route('index')" :active="request()->routeIs('index')">
+          {{ __('Home') }}
         </x-responsive-nav-link>
         <x-responsive-nav-link :href="route('about')" :active="request()->routeIs('about')">
           {{ __('About') }}
@@ -134,9 +142,20 @@
         <x-responsive-nav-link :href="route('contact')" :active="request()->routeIs('contact')">
           {{ __('Contact') }}
         </x-responsive-nav-link>
+
+        @auth
         <x-responsive-nav-link :href="route('predict.history')" :active="request()->routeIs('predict.history')">
-          {{ __('History') }}
-        </x-responsive-nav-link>
+            {{ __('History') }}
+          </x-responsive-nav-link>
+        @endauth
+
+
+        @guest
+        <x-responsive-nav-link :href="route('help')" :active="request()->routeIs('help')">
+            {{ __('help') }}
+          </x-responsive-nav-link>
+        @endguest
+
       </div>
 
       <!-- Responsive Settings Options -->

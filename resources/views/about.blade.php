@@ -15,16 +15,37 @@
 
       <!-- Our Story: Asymmetric Split Layout -->
       <section class="grid items-center grid-cols-1 gap-8 md:grid-cols-12">
-        <div class="p-10 bg-white shadow-xl md:col-span-7 rounded-xl">
-          <h2 class="mb-4 text-3xl font-bold text-primary">Our Journey</h2>
-          <p class="text-lg leading-relaxed text-gray-700">
-            Founded in 2021, Pulmo-Vantage emerged from a passion for innovation and a commitment to better lung care.
-            Our team of doctors, engineers, and researchers joined forces to harness AI for early lung disease detection,
-            turning challenges into opportunities and setting new standards in healthcare.
-          </p>
-        </div>
+        <div class="h-full p-10 bg-white shadow-xl md:col-span-7 rounded-xl">
+            <h2 class="mb-6 text-4xl font-bold text-primary">Our Journey</h2>
+
+            <p class="mb-6 text-lg leading-relaxed text-gray-700">
+              Founded in 2021, Pulmo-Vantage emerged from a passion for innovation and a commitment to better lung care.
+              Our interdisciplinary team joined forces to harness AI for early lung disease detection, turning challenges
+              into opportunities and setting new standards in healthcare.
+            </p>
+
+            <ul class="space-y-4">
+              <li class="flex items-start">
+                <i class="mt-1 mr-3 fas fa-check-circle text-accent"></i>
+                <span><strong>2021:</strong> Company founded by pulmonologists & AI researchers.</span>
+              </li>
+              <li class="flex items-start">
+                <i class="mt-1 mr-3 fas fa-rocket text-accent"></i>
+                <span><strong>2022:</strong> Launched MVP with basic image-upload and AI analysis.</span>
+              </li>
+              <li class="flex items-start">
+                <i class="mt-1 mr-3 fas fa-brain text-accent"></i>
+                <span><strong>2023:</strong> Enhanced models—98%+ accuracy on key lung markers.</span>
+              </li>
+              <li class="flex items-start">
+                <i class="mt-1 mr-3 fas fa-globe text-accent"></i>
+                <span><strong>2024:</strong> Expanded globally, supporting multi-language care.</span>
+              </li>
+            </ul>
+          </div>
+
         <div class="md:col-span-5">
-          <img src="https://source.unsplash.com/600x400/?innovation,medical" alt="Our Journey" class="w-full shadow-2xl rounded-xl">
+          <img src="{{ asset('images/journal-cover.png') }}" alt="Our Journey" class="w-full shadow-2xl rounded-xl">
         </div>
       </section>
 

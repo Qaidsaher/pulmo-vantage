@@ -1,76 +1,85 @@
 <x-app-layout>
     <div class="px-4 py-12 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <!-- Breadcrumb -->
-        <div class="mb-8">
-            <a href="{{ route('predict.history') }}"
-               class="flex items-center transition duration-300 text-primary hover:text-secondary">
-                <i class="mr-2 fas fa-arrow-left"></i> Back to History
-            </a>
+      <nav class="my-2 text-sm text-gray-500">
+        <a href="{{ route('predict.history') }}" class="inline-flex items-center transition hover:text-primary">
+          <i class="mr-2 fas fa-arrow-left"></i>Back to History
+        </a>
+      </nav>
+
+      <!-- Detail Card -->
+      <div class="overflow-hidden bg-white rounded-md shadow-2xl">
+        <!-- Header -->
+        <div class="p-8 bg-gradient-to-r from-primary to-secondary">
+          <h1 class="text-4xl font-extrabold text-white">
+            {{ ucfirst($prediction->type) }} Prediction Details
+          </h1>
+          <p class="mt-1 text-sm text-white/80">
+            Predicted on {{ $prediction->created_at->format('M d, Y') }} &mdash;
+            Summary: <span class="font-semibold">{{ $prediction->result_summary }}</span>
+          </p>
         </div>
 
-        <!-- Prediction Detail Card -->
-        <div class="p-8 bg-white rounded-lg shadow-xl">
-            <h1 class="mb-4 text-4xl font-bold text-primary">
-                {{ ucfirst($prediction->type) }} Prediction Details
-            </h1>
-            <div class="mb-6 text-sm text-gray-600">
-                <span>Predicted on {{ $prediction->created_at->format('M d, Y') }}</span>
-                &mdash;
-                <span>Summary: <strong class="text-gray-800">{{ $prediction->result_summary }}</strong></span>
-            </div>
-
-            @if ($prediction->type === 'image' && $prediction->image_path)
-                <div class="mb-6">
-                    <a href="{{ asset('storage/' . $prediction->image_path) }}" target="_blank">
-                        <img src="{{ asset('storage/' . $prediction->image_path) }}" alt="Prediction Image"
-                             class="object-cover w-full transition duration-300 rounded-md h-80 hover:opacity-90">
-                    </a>
-                </div>
+        <!-- Body -->
+        <div class="grid grid-cols-1 gap-8 p-8 lg:grid-cols-3 lg:gap-12">
+          <!-- Image or Inputs -->
+          <div class="col-span-1 space-y-6 lg:col-span-2">
+            @if($prediction->type === 'image' && $prediction->image_path)
+              <div class="overflow-hidden rounded-lg">
+                <img src="{{ asset('storage/' . $prediction->image_path) }}"
+                     alt="Prediction Image"
+                     class="object-cover w-full transition h-80 hover:opacity-90">
+              </div>
+            @else
+              <div class="p-6 space-y-4 rounded-lg bg-gray-50">
+                <h2 class="text-2xl font-semibold text-darkNeutral">Input Details</h2>
+                <ul class="space-y-1 text-gray-700 list-disc list-inside">
+                  <li><strong>Name:</strong> {{ $prediction->manual_name }}</li>
+                  <li><strong>Surname:</strong> {{ $prediction->manual_surname }}</li>
+                  <li><strong>Age:</strong> {{ $prediction->manual_age }}</li>
+                  <li><strong>Smokes:</strong> {{ ucfirst($prediction->manual_smokes) }}</li>
+                  <li><strong>AreaQ:</strong> {{ $prediction->manual_areaq }}</li>
+                  <li><strong>Alcohol:</strong> {{ $prediction->manual_alkhol }}</li>
+                </ul>
+              </div>
             @endif
 
-            @if ($prediction->type === 'manual')
-                <div class="mb-6">
-                    <h2 class="mb-3 text-2xl font-semibold text-primary">Input Details</h2>
-                    <ul class="space-y-1 text-gray-700 list-disc list-inside">
-                        <li><span class="font-medium">Name:</span> {{ $prediction->manual_name }}</li>
-                        <li><span class="font-medium">Surname:</span> {{ $prediction->manual_surname }}</li>
-                        <li><span class="font-medium">Age:</span> {{ $prediction->manual_age }}</li>
-                        <li><span class="font-medium">Smokes:</span> {{ ucfirst($prediction->manual_smokes) }}</li>
-                        <li><span class="font-medium">AreaQ:</span> {{ $prediction->manual_areaq }}</li>
-                        <li><span class="font-medium">Alcohol:</span> {{ $prediction->manual_alkhol }}</li>
-                    </ul>
-                </div>
-            @endif
-
-            @if ($prediction->predictionResults->count())
-                <div class="mt-8">
-                    <h2 class="mb-4 text-2xl font-semibold text-primary">Detailed Model Results</h2>
-                    <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-                        @foreach ($prediction->predictionResults as $result)
-                            <div class="p-6 border border-gray-200 rounded-lg shadow-md bg-gray-50">
-                                <div class="flex items-center justify-between mb-2">
-                                    <span class="text-lg font-semibold text-primary">
-                                        {{ ucfirst($result->model_name) }}
-                                    </span>
-                                    @if ($result->confidence)
-                                        <span class="text-sm text-gray-500">
-                                            {{ round($result->confidence * 100) }}% Confidence
-                                        </span>
-                                    @endif
-                                </div>
-                                <p class="mb-4 text-gray-700">{{ $result->result_detail }}</p>
-                                @if ($result->image_path)
-                                    <a href="{{ Storage::url($result->image_path) }}" target="_blank">
-                                        <img src="{{ Storage::url($result->image_path) }}"
-                                             alt="Grad-CAM for {{ $result->model_name }}"
-                                             class="object-cover w-full h-48 transition duration-300 rounded hover:opacity-90">
-                                    </a>
-                                @endif
-                            </div>
-                        @endforeach
+            @if($prediction->predictionResults->count())
+              <div class="space-y-6">
+                <h2 class="text-2xl font-semibold text-darkNeutral">Detailed Model Results</h2>
+                <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+                  @foreach($prediction->predictionResults as $result)
+                    <div class="p-6 transition bg-white border border-gray-200 shadow rounded-xl hover:shadow-lg">
+                      <div class="flex items-center justify-between mb-4">
+                        <span class="text-lg font-semibold text-primary">{{ ucfirst($result->model_name) }}</span>
+                        @if($result->confidence)
+                          <span class="text-sm text-gray-500">{{ round($result->confidence*100) }}% Confidence</span>
+                        @endif
+                      </div>
+                      <p class="mb-4 text-gray-700">{{ $result->result_detail }}</p>
+                      @if($result->image_path)
+                        <a href="{{ Storage::url($result->image_path) }}" target="_blank" class="block overflow-hidden rounded-lg">
+                          <img src="{{ Storage::url($result->image_path) }}"
+                               alt="Grad-CAM for {{ $result->model_name }}"
+                               class="object-cover w-full h-48 transition hover:opacity-90">
+                        </a>
+                      @endif
                     </div>
+                  @endforeach
                 </div>
+              </div>
             @endif
+          </div>
+
+          <!-- Actions Sidebar -->
+          <div class="col-span-1 space-y-4">
+            <a href="{{ route('predict.destroy', $prediction->id) }}"
+               data-method="delete" data-confirm="Delete this prediction?"
+               class="block w-full px-4 py-2 font-semibold text-center text-white transition bg-red-500 rounded-lg hover:bg-red-600">
+              <i class="mr-2 fas fa-trash-alt"></i>Delete
+            </a>
+          </div>
         </div>
+      </div>
     </div>
 </x-app-layout>
