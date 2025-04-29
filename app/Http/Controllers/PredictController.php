@@ -32,7 +32,7 @@ class PredictController extends Controller
         $path = $file->store('predictions', 'public');
 
         // Get the FastAPI URL from the .env (default to localhost if not set)
-        $apiUrl = env('FASTAPI_URL', 'http://localhost:8000/predict');
+        $apiUrl = env('FASTAPI_URL', 'https://lungs-cancer-predictions-jjl1.onrender.com/predict');
 
         // Call the FastAPI endpoint using Laravel's HTTP client
         $response = Http::attach(
