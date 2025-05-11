@@ -22,11 +22,11 @@
                 </p>
                 <!-- CTA Buttons -->
                 <div class="flex flex-wrap gap-4 mt-6">
-                    <a href="#"
+                    <a href="{{ route('about') }}"
                         class="px-8 py-3 font-semibold text-white transition-all duration-300 rounded-lg shadow-md bg-primary hover:bg-opacity-80">
                         Get Started
                     </a>
-                    <a href="#"
+                    <a href="{{ route('about') }}"
                         class="px-8 py-3 font-semibold transition-all duration-300 border rounded-lg shadow-md border-primary text-primary hover:bg-primary hover:text-white">
                         Learn More
                     </a>

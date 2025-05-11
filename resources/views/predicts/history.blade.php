@@ -15,11 +15,6 @@
           <i class="fas fa-image"></i>
           New Image Prediction
         </a>
-        <a href="{{ route('predict.manual.show') }}"
-           class="inline-flex items-center gap-2 px-8 py-3 font-semibold text-white transition rounded-full shadow-lg bg-gradient-to-r from-primary to-secondary hover:from-secondary hover:to-primary">
-          <i class="fas fa-keyboard"></i>
-          New Manual Prediction
-        </a>
       </div>
 
       {{-- Prediction Grid --}}
