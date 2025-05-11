@@ -105,7 +105,6 @@ class PredictController extends Controller
         //     'redirect'   => route('predict.history'), // Add the route URL here
         // ]);
         return redirect()->back()->with('result', 'Prediction successful');
-
     }
 
     /**
@@ -203,6 +202,6 @@ class PredictController extends Controller
 
         $prediction->delete();
 
-        return redirect()->back()->with('result', 'Prediction deleted successfully');
+        return redirect()->route('predict.history')->with('result', 'Prediction deleted successfully');
     }
 }
