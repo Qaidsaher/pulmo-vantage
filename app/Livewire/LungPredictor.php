@@ -39,8 +39,7 @@ class LungPredictor extends Component
             'file',
             file_get_contents($this->image->getRealPath()),
             $this->image->getClientOriginalName()
-            // )->post(env('FASTAPI_URL', 'https://lungs-cancer-predictions-jjl1.onrender.com/predict'));
-        )->post('http://127.0.0.1:8001/predict');
+            )->post(env('FASTAPI_URL', 'https://lungs-cancer-predictions.onrender.com/predict'));
         $path = $this->image->store('predictions', 'public');
 
         if ($response->successful()) {
